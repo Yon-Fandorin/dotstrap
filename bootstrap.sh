@@ -25,6 +25,7 @@ SCRIPTS=(
     bun.sh
     claude.sh
     nvim.sh
+    zellij.sh
     zshrc.sh    # must be last — generates .zshrc referencing all tools above
 )
 
