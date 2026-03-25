@@ -51,17 +51,29 @@ fi
 
 # ─── Deploy Config ──────────────────────────────────────────────────────────
 
-CONFIG_SRC="${DOTSTRAP_DIR}/configs/zellij/config.kdl"
-CONFIG_DST="${HOME}/.config/zellij/config.kdl"
+ZELLIJ_SRC="${DOTSTRAP_DIR}/configs/zellij"
+ZELLIJ_DST="${HOME}/.config/zellij"
 
-if [[ -f "$CONFIG_SRC" ]]; then
-    mkdir -p "${HOME}/.config/zellij"
-    if [[ -f "$CONFIG_DST" ]] && diff -q "$CONFIG_SRC" "$CONFIG_DST" &>/dev/null; then
-        log_success "zellij config already up to date"
-    else
-        cp "$CONFIG_SRC" "$CONFIG_DST"
-        log_success "Deployed zellij config"
+mkdir -p "${ZELLIJ_DST}/plugins" "${ZELLIJ_DST}/layouts"
+
+# Deploy config, layouts, and plugins
+deploy_file() {
+    local src="$1" dst="$2"
+    if [[ ! -f "$src" ]]; then
+        log_error "Source not found: ${src}"
+        return 1
     fi
-fi
+    if [[ -f "$dst" ]] && diff -q "$src" "$dst" &>/dev/null; then
+        log_success "$(basename "$dst") already up to date"
+    else
+        cp "$src" "$dst"
+        log_success "Deployed $(basename "$dst")"
+    fi
+}
+
+deploy_file "${ZELLIJ_SRC}/config.kdl" "${ZELLIJ_DST}/config.kdl"
+deploy_file "${ZELLIJ_SRC}/themes/zjstatus/catppuccin-mocha.kdl" "${ZELLIJ_DST}/layouts/catppuccin-mocha.kdl"
+deploy_file "${ZELLIJ_SRC}/plugins/zjstatus.wasm" "${ZELLIJ_DST}/plugins/zjstatus.wasm"
+deploy_file "${ZELLIJ_SRC}/plugins/zellij_forgot.wasm" "${ZELLIJ_DST}/plugins/zellij_forgot.wasm"
 
 log_success "Zellij ready"
