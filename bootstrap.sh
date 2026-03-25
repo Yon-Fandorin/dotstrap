@@ -32,7 +32,11 @@ SCRIPTS=(
 # ─── Selective Execution ─────────────────────────────────────────────────────
 
 if [[ $# -gt 0 ]]; then
-    SCRIPTS=("$@")
+    SCRIPTS=()
+    for arg in "$@"; do
+        [[ "$arg" != *.sh ]] && arg="${arg}.sh"
+        SCRIPTS+=("$arg")
+    done
 fi
 
 # ─── Pre-flight Checks ──────────────────────────────────────────────────────
