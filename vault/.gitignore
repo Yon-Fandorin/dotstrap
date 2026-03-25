@@ -1,0 +1,6 @@
+# zodaic 런타임 파일
+.zodaic/zodaic.db-wal
+.zodaic/zodaic.db-shm
+.zodaic/.content-cache/
+.index/
+.audit/
