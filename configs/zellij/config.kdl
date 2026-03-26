@@ -51,8 +51,8 @@ keybinds {
         // Secondary: Alt+Shift — quick actions
         bind "Alt Shift f" { ToggleFloatingPanes; }
         bind "Alt Shift n" { NewPane; }
-        bind "Alt <" { MoveTab "Left"; }
-        bind "Alt >" { MoveTab "Right"; }
+        bind "Alt ," { MoveTab "Left"; }
+        bind "Alt ." { MoveTab "Right"; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
         bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }
