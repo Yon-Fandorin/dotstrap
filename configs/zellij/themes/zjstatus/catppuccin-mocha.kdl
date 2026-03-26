@@ -1,0 +1,189 @@
+layout {
+    default_tab_template {
+        children
+        pane size=2 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                // ── Catppuccin Mocha palette ──────────────────────────
+                color_bg0 "#1e1e2e"  // base
+                color_bg1 "#181825"  // mantle
+                color_bg2 "#313244"  // surface0
+                color_bg3 "#45475a"  // surface1
+                color_bg4 "#585b70"  // surface2
+                color_fg0 "#cdd6f4"  // text
+                color_fg1 "#bac2de"  // subtext1
+                color_fg2 "#a6adc8"  // subtext0
+                color_fg3 "#9399b2"  // overlay2
+                color_fg4 "#7f849c"  // overlay1
+                color_red "#f38ba8"
+                color_green "#a6e3a1"
+                color_yellow "#f9e2af"
+                color_blue "#89b4fa"
+                color_purple "#cba6f7"
+                color_aqua "#94e2d5"
+                color_gray "#7f849c"
+                color_orange "#fab387"
+                color_pink "#f5c2e7"
+
+                // ── Layout ────────────────────────────────────────────
+                format_left   "#[bg=$bg2,fg=$fg3] {session} {mode}#[bg=$bg1]{tabs}"
+                format_center "{notifications}"
+                format_right  "#[bg=$bg1,fg=$bg2]#[bg=$bg2,fg=$fg4] {command_user}@{command_host} #[bg=$bg2,fg=$fg3]#[bg=$fg3,fg=$bg1] {datetime} "
+                format_space  "#[bg=$bg1,fg=$fg1]"
+                format_hide_on_overlength "true"
+                format_precedence "lrc"
+
+                border_enabled  "true"
+                border_char     "─"
+                border_format   "#[fg=$bg1]{char}"
+                border_position "top"
+
+                hide_frame_for_single_pane "true"
+
+                // ── Mode indicators ───────────────────────────────────
+                mode_normal        "#[bg=$bg3,fg=$bg2]#[bg=$bg3,fg=$fg3,bold] NORMAL #[bg=$bg1,fg=$bg3]"
+                mode_tmux          "#[bg=$green,fg=$bg2]#[bg=$green,fg=$bg0,bold] TMUX #[bg=$bg1,fg=$green]"
+                mode_locked        "#[bg=$red,fg=$bg2]#[bg=$red,fg=$bg0,bold] LOCKED #[bg=$bg1,fg=$red]"
+                mode_pane          "#[bg=$aqua,fg=$bg2]#[bg=$aqua,fg=$bg0,bold] PANE #[bg=$bg1,fg=$aqua]"
+                mode_tab           "#[bg=$aqua,fg=$bg2]#[bg=$aqua,fg=$bg0,bold] TAB #[bg=$bg1,fg=$aqua]"
+                mode_scroll        "#[bg=$blue,fg=$bg2]#[bg=$blue,fg=$bg0,bold] SCROLL #[bg=$bg1,fg=$blue]"
+                mode_enter_search  "#[bg=$blue,fg=$bg2]#[bg=$blue,fg=$bg0,bold] ENT-SEARCH #[bg=$bg1,fg=$blue]"
+                mode_search        "#[bg=$blue,fg=$bg2]#[bg=$blue,fg=$bg0,bold] SEARCH #[bg=$bg1,fg=$blue]"
+                mode_resize        "#[bg=$yellow,fg=$bg2]#[bg=$yellow,fg=$bg0,bold] RESIZE #[bg=$bg1,fg=$yellow]"
+                mode_rename_tab    "#[bg=$yellow,fg=$bg2]#[bg=$yellow,fg=$bg0,bold] RENAME-TAB #[bg=$bg1,fg=$yellow]"
+                mode_rename_pane   "#[bg=$yellow,fg=$bg2]#[bg=$yellow,fg=$bg0,bold] RENAME-PANE #[bg=$bg1,fg=$yellow]"
+                mode_move          "#[bg=$yellow,fg=$bg2]#[bg=$yellow,fg=$bg0,bold] MOVE #[bg=$bg1,fg=$yellow]"
+                mode_session       "#[bg=$purple,fg=$bg2]#[bg=$purple,fg=$bg0,bold] SESSION #[bg=$bg1,fg=$purple]"
+                mode_prompt        "#[bg=$purple,fg=$bg2]#[bg=$purple,fg=$bg0,bold] PROMPT #[bg=$bg1,fg=$purple]"
+                mode_default_to_mode "normal"
+
+                // ── Tabs ──────────────────────────────────────────────
+                tab_normal              "#[bg=$bg2,fg=$bg1]#[bg=$bg2,fg=$fg1] {index} #[bg=$bg2,fg=$fg1,bold] {name} {floating_indicator} #[bg=$bg1,fg=$bg2]"
+                tab_normal_fullscreen   "#[bg=$bg2,fg=$bg1]#[bg=$bg2,fg=$fg1] {index} #[bg=$bg2,fg=$fg1,bold] {name} {fullscreen_indicator} #[bg=$bg1,fg=$bg2]"
+                tab_normal_sync         "#[bg=$bg2,fg=$bg1]#[bg=$bg2,fg=$fg1] {index} #[bg=$bg2,fg=$fg1,bold] {name} {sync_indicator} #[bg=$bg1,fg=$bg2]"
+                tab_active              "#[bg=$yellow,fg=$bg1]#[bg=$yellow,fg=$bg2] {index} #[bg=$yellow,fg=$bg2,bold] {name} {floating_indicator} #[bg=$bg1,fg=$yellow]"
+                tab_active_fullscreen   "#[bg=$yellow,fg=$bg1]#[bg=$yellow,fg=$bg2] {index} #[bg=$yellow,fg=$bg2,bold] {name} {fullscreen_indicator} #[bg=$bg1,fg=$yellow]"
+                tab_active_sync         "#[bg=$yellow,fg=$bg1]#[bg=$yellow,fg=$bg2] {index} #[bg=$yellow,fg=$bg2,bold] {name} {sync_indicator} #[bg=$bg1,fg=$yellow]"
+                tab_separator           "#[bg=$bg1,fg=$fg1]"
+
+                tab_sync_indicator       ""
+                tab_fullscreen_indicator "󰊓"
+                tab_floating_indicator   "󰹙"
+
+                // ── zjstatus-hints pipe (required for rendering) ────
+                pipe_zjstatus_hints_format "{output}"
+
+                // ── Notifications ─────────────────────────────────────
+                notification_format_unread "#[bg=$orange,fg=$bg1]#[bg=$orange,fg=$bg1] {message} #[bg=$bg1,fg=$orange]"
+                notification_format_no_notifications ""
+                notification_show_interval "10"
+
+                // ── Commands ──────────────────────────────────────────
+                command_host_command    "uname -n"
+                command_host_format     "{stdout}"
+                command_host_interval   "0"
+                command_host_rendermode "static"
+
+                command_user_command    "whoami"
+                command_user_format     "{stdout}"
+                command_user_interval   "0"
+                command_user_rendermode "static"
+
+                // ── Datetime ──────────────────────────────────────────
+                datetime          "{format}"
+                datetime_format   "%Y-%m-%d %H:%M"
+                datetime_timezone "Asia/Seoul"
+            }
+        }
+    }
+
+    swap_tiled_layout name="vertical" {
+        tab max_panes=4 {
+            pane split_direction="vertical" {
+                pane
+                pane { children; }
+            }
+        }
+        tab max_panes=7 {
+            pane split_direction="vertical" {
+                pane { children; }
+                pane { pane; pane; pane; pane; }
+            }
+        }
+        tab max_panes=11 {
+            pane split_direction="vertical" {
+                pane { children; }
+                pane { pane; pane; pane; pane; }
+                pane { pane; pane; pane; pane; }
+            }
+        }
+    }
+
+    swap_tiled_layout name="horizontal" {
+        tab max_panes=3 {
+            pane
+            pane
+        }
+        tab max_panes=7 {
+            pane {
+                pane split_direction="vertical" { children; }
+                pane split_direction="vertical" { pane; pane; pane; pane; }
+            }
+        }
+        tab max_panes=11 {
+            pane {
+                pane split_direction="vertical" { children; }
+                pane split_direction="vertical" { pane; pane; pane; pane; }
+                pane split_direction="vertical" { pane; pane; pane; pane; }
+            }
+        }
+    }
+
+    swap_tiled_layout name="stacked" {
+        tab min_panes=4 {
+            pane split_direction="vertical" {
+                pane
+                pane stacked=true { children; }
+            }
+        }
+    }
+
+    swap_floating_layout name="staggered" {
+        floating_panes
+    }
+
+    swap_floating_layout name="enlarged" {
+        floating_panes max_panes=10 {
+            pane { x "5%"; y 1; width "90%"; height "90%"; }
+            pane { x "5%"; y 2; width "90%"; height "90%"; }
+            pane { x "5%"; y 3; width "90%"; height "90%"; }
+            pane { x "5%"; y 4; width "90%"; height "90%"; }
+            pane { x "5%"; y 5; width "90%"; height "90%"; }
+            pane { x "5%"; y 6; width "90%"; height "90%"; }
+            pane { x "5%"; y 7; width "90%"; height "90%"; }
+            pane { x "5%"; y 8; width "90%"; height "90%"; }
+            pane { x "5%"; y 9; width "90%"; height "90%"; }
+            pane { x 10; y 10; width "90%"; height "90%"; }
+        }
+    }
+
+    swap_floating_layout name="spread" {
+        floating_panes max_panes=1 {
+            pane { y "50%"; x "50%"; }
+        }
+        floating_panes max_panes=2 {
+            pane { x "1%"; y "25%"; width "45%"; }
+            pane { x "50%"; y "25%"; width "45%"; }
+        }
+        floating_panes max_panes=3 {
+            pane { y "55%"; width "45%"; height "45%"; }
+            pane { x "1%"; y "1%"; width "45%"; }
+            pane { x "50%"; y "1%"; width "45%"; }
+        }
+        floating_panes max_panes=4 {
+            pane { x "1%"; y "55%"; width "45%"; height "45%"; }
+            pane { x "50%"; y "55%"; width "45%"; height "45%"; }
+            pane { x "1%"; y "1%"; width "45%"; height "45%"; }
+            pane { x "50%"; y "1%"; width "45%"; height "45%"; }
+        }
+    }
+}
