@@ -1,0 +1,12 @@
+# Zodaic Configuration
+# 전체 옵션: examples/zodaic.config.toml
+
+[vault]
+name = "dotstrap"
+
+[layout]
+name = "default"
+
+[metadata]
+# backend = "sqlite"
+# path = ".zodaic/zodaic.db"

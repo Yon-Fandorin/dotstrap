@@ -25,13 +25,18 @@ SCRIPTS=(
     bun.sh
     claude.sh
     nvim.sh
+    zellij.sh
     zshrc.sh    # must be last — generates .zshrc referencing all tools above
 )
 
 # ─── Selective Execution ─────────────────────────────────────────────────────
 
 if [[ $# -gt 0 ]]; then
-    SCRIPTS=("$@")
+    SCRIPTS=()
+    for arg in "$@"; do
+        [[ "$arg" != *.sh ]] && arg="${arg}.sh"
+        SCRIPTS+=("$arg")
+    done
 fi
 
 # ─── Pre-flight Checks ──────────────────────────────────────────────────────

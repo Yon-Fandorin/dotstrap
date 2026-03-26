@@ -1,0 +1,4 @@
+zodaic.db-wal
+zodaic.db-shm
+*.pid
+orphans/
