@@ -45,6 +45,35 @@
 - `~/.zshrc.local`을 마지막에 소싱 — 추적하지 않는 개인 설정용
 - nvim 존재 시 `EDITOR`/`VISUAL` 설정 → git 등 모든 CLI 도구에서 nvim 사용
 - `vi`/`vim` → `nvim`, `cat` → `bat`, `find` → `fd`, `ls` → `eza` 별칭
+- Claude Code `cc` 별칭
+- tmux 존재 시 `tm`, `tma`, `tml`, `tmn` 별칭
+
+### Claude Code 관리
+
+`scripts/claude.sh`는 Claude Code CLI를 설치/갱신하고 statusline 설정을 배포한다.
+
+- Volta가 있으면 `volta install @anthropic-ai/claude-code@latest` 사용
+- Volta가 없고 npm이 있으면 `npm install -g @anthropic-ai/claude-code` 사용
+- `configs/claude/statusline.sh`를 `~/.claude/statusline.sh`로 배포
+- `jq`가 있으면 `~/.claude/settings.json`에 statusLine 명령 자동 설정
+
+### tmux 관리
+
+`scripts/tmux.sh`는 `configs/tmux/tmux.conf`를 `~/.tmux.conf`로 배포한다.
+
+- tmux가 없으면 `pkg_install tmux`로 설치 시도
+- prefix는 `Ctrl-a`
+- 마우스, vi copy mode, 현재 경로 기준 pane/window 생성 활성화
+- 상태줄은 Catppuccin Mocha 계열 색상 사용
+- copy mode의 `y`는 macOS `pbcopy`, Wayland `wl-copy`, X11 `xclip` 순서로 클립보드 연동
+
+### Codex CLI 관리
+
+`scripts/codex.sh`는 공식 Codex standalone installer를 비대화형으로 실행해 `~/.local/bin/codex`를 설치/갱신한다.
+
+- 설치 URL: `https://chatgpt.com/codex/install.sh`
+- `CODEX_NON_INTERACTIVE=true`로 실행해 설치 후 Codex를 자동 실행하지 않음
+- `CODEX_INSTALL_DIR=~/.local/bin`으로 설치 위치 고정
 
 ### 검증 방법
 
@@ -53,7 +82,7 @@
 ./dotstrap/bootstrap.sh
 
 # 도구 버전 확인
-rustc --version && node --version && bun --version && nvim --version && claude --version
+rustc --version && node --version && bun --version && claude --version && codex --version && nvim --version && tmux -V
 
 # 멱등성 확인 (재실행)
 ./dotstrap/bootstrap.sh

@@ -24,8 +24,9 @@ SCRIPTS=(
     volta-node.sh
     bun.sh
     claude.sh
+    codex.sh
     nvim.sh
-    zellij.sh
+    tmux.sh
     zshrc.sh    # must be last — generates .zshrc referencing all tools above
 )
 

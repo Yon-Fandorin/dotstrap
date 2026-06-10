@@ -10,11 +10,19 @@ export VOLTA_HOME="${HOME}/.volta"
 export PATH="${VOLTA_HOME}/bin:${PATH}"
 
 if has_cmd claude; then
-    log_info "Updating Claude Code..."
-    claude update || log_warn "Claude update failed — may already be latest"
+    claude_path="$(command -v claude)"
+    if has_cmd volta && [[ "$claude_path" == "${VOLTA_HOME}/bin/claude" ]]; then
+        log_info "Updating Claude Code via Volta..."
+        volta install @anthropic-ai/claude-code@latest
+    else
+        log_info "Updating Claude Code..."
+        claude update || log_warn "Claude update failed — may already be latest"
+    fi
 else
     log_info "Installing Claude Code CLI..."
-    if has_cmd npm; then
+    if has_cmd volta; then
+        volta install @anthropic-ai/claude-code@latest
+    elif has_cmd npm; then
         npm install -g @anthropic-ai/claude-code
     else
         log_error "npm not found — install Node.js first (run volta-node.sh)"

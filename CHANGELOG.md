@@ -1,5 +1,16 @@
 ## Changelog
 
+### 2026-06-10
+
+#### 변경
+- 기본 터미널 멀티플렉서를 Zellij에서 tmux로 전환
+  - `bootstrap.sh` 기본 실행 순서에서 `zellij.sh` 대신 `tmux.sh` 실행
+  - `configs/tmux/tmux.conf` 추가 및 `~/.tmux.conf` 배포
+  - `.zshrc` 별칭을 Zellij 계열에서 tmux 계열로 변경
+  - README와 상세 레퍼런스의 실행 순서 및 검증 명령 갱신
+- `codex.sh` — 공식 standalone installer 기반 Codex CLI 설치/갱신 스크립트 추가
+- `claude.sh` — Volta로 설치된 Claude Code는 `volta install @anthropic-ai/claude-code@latest`로 갱신하도록 수정
+
 ### 2026-03-04
 
 #### 수정

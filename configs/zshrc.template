@@ -98,11 +98,12 @@ if command -v zoxide &>/dev/null; then
     eval "$(zoxide init zsh)"
 fi
 
-# Zellij
-if command -v zellij &>/dev/null; then
-    alias zj='zellij'
-    alias zja='zellij attach'
-    alias zjl='zellij list-sessions'
+# tmux
+if command -v tmux &>/dev/null; then
+    alias tm='tmux'
+    alias tma='tmux attach -t'
+    alias tml='tmux list-sessions'
+    alias tmn='tmux new -s'
 fi
 
 # ─── Aliases ──────────────────────────────────────────────────────────────────

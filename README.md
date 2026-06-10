@@ -40,8 +40,10 @@ curl -fsSL https://raw.githubusercontent.com/Yon-Fandorin/dotstrap/main/install.
 | 6 | volta-node.sh | Volta + Node LTS |
 | 7 | bun.sh | Bun 런타임 |
 | 8 | claude.sh | Claude Code CLI |
-| 9 | nvim.sh | Neovim + LazyVim + 플러그인 설정 |
-| 10 | zshrc.sh | .zshrc 생성 (마지막 실행) |
+| 9 | codex.sh | Codex CLI |
+| 10 | nvim.sh | Neovim + LazyVim + 플러그인 설정 |
+| 11 | tmux.sh | tmux 설정 배포 |
+| 12 | zshrc.sh | .zshrc 생성 (마지막 실행) |
 
 ### 파일 구조
 
@@ -57,6 +59,8 @@ dotstrap/
 ├── configs/
 │   ├── zshrc.template          # .zshrc 템플릿
 │   ├── starship.toml           # Starship 설정 (Catppuccin Mocha)
+│   ├── claude/statusline.sh    # Claude Code statusline
+│   ├── tmux/tmux.conf          # tmux 설정
 │   └── nvim/plugins/           # Neovim 플러그인 설정
 └── docs/
     └── reference.md            # 상세 레퍼런스
