@@ -170,6 +170,20 @@ has_cmd() {
     command -v "$1" &>/dev/null
 }
 
+# Print the user's login shell from the system database (not $SHELL, which is
+# fixed at login time and goes stale after chsh until the next full re-login).
+# Falls back to $SHELL when no user database is available.
+current_login_shell() {
+    local user shell=""
+    user="$(whoami)"
+    if has_cmd getent; then
+        shell="$(getent passwd "$user" | cut -d: -f7)"
+    elif has_cmd dscl; then
+        shell="$(dscl . -read "/Users/$user" UserShell 2>/dev/null | awk '{print $2}')"
+    fi
+    echo "${shell:-${SHELL:-}}"
+}
+
 # Clone a git repo if not present; pull if already cloned.
 git_clone_or_pull() {
     local repo="$1" dest="$2"

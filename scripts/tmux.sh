@@ -25,10 +25,22 @@ if [[ ! -f "$CONFIG_SRC" ]]; then
     exit 1
 fi
 
-if [[ -f "$CONFIG_DST" ]] && diff -q "$CONFIG_SRC" "$CONFIG_DST" &>/dev/null; then
+# Render the config, substituting the resolved zsh path into default-shell.
+RENDERED="$(mktemp)"
+trap 'rm -f "$RENDERED"' EXIT
+ZSH_PATH="$(command -v zsh 2>/dev/null || true)"
+if [[ -n "$ZSH_PATH" ]]; then
+    sed "s|__ZSH_PATH__|${ZSH_PATH}|g" "$CONFIG_SRC" > "$RENDERED"
+else
+    # No zsh — drop the line so tmux falls back to $SHELL instead of erroring.
+    grep -v '__ZSH_PATH__' "$CONFIG_SRC" > "$RENDERED"
+    log_warn "zsh not found; tmux default-shell left to \$SHELL"
+fi
+
+if [[ -f "$CONFIG_DST" ]] && diff -q "$RENDERED" "$CONFIG_DST" &>/dev/null; then
     log_success ".tmux.conf already up to date"
 else
-    cp "$CONFIG_SRC" "$CONFIG_DST"
+    cp "$RENDERED" "$CONFIG_DST"
     log_success "Deployed .tmux.conf"
 fi
 

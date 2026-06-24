@@ -11,8 +11,9 @@ else
     pkg_install zsh
 fi
 
-# Set zsh as default shell (skip on macOS where it's already default)
-CURRENT_SHELL="$(basename "${SHELL:-}")"
+# Set zsh as default shell. Read the actual login shell from the user database
+# rather than $SHELL, which stays stale within the bootstrap session after chsh.
+CURRENT_SHELL="$(basename "$(current_login_shell)")"
 if [[ "$CURRENT_SHELL" != "zsh" ]]; then
     ZSH_PATH="$(which zsh)"
     if [[ "${HAVE_SUDO:-false}" == true ]]; then
