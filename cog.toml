@@ -1,0 +1,11 @@
+# cog.toml — Cocogitto configuration (https://docs.cocogitto.io)
+# Enforces Conventional Commits (https://www.conventionalcommits.org) on this
+# repository via a commit-msg git hook that runs `cog verify` on each message.
+# The hook lives in .git/hooks (untracked); scripts/cocogitto.sh installs it
+# during bootstrap, or run manually:  cog install-hook --overwrite commit-msg
+
+[git_hooks.commit-msg]
+script = """#!/bin/sh
+set -e
+cog verify --file "$1"
+"""

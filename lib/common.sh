@@ -92,6 +92,12 @@ map_pkg() {
                 *)                    echo "fd" ;;
             esac
             ;;
+        cocogitto)
+            case "$OS" in
+                arch|macos) echo "cocogitto" ;;
+                *)          echo "" ;;  # not packaged elsewhere; cocogitto.sh falls back to cargo
+            esac
+            ;;
         xclip)
             case "$OS" in
                 macos) echo "" ;;  # macOS uses pbcopy/pbpaste
