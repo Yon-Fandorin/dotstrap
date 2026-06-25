@@ -27,6 +27,7 @@ SCRIPTS=(
     codex.sh
     nvim.sh
     tmux.sh
+    tmux-plugins.sh    # after tmux.sh — session persistence (resurrect/continuum) + sesh
     zshrc.sh    # must be last — generates .zshrc referencing all tools above
 )
 
