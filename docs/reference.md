@@ -59,13 +59,40 @@
 
 ### tmux 관리
 
-`scripts/tmux.sh`는 `configs/tmux/tmux.conf`를 `~/.tmux.conf`로 배포한다.
+tmux 설정은 두 스크립트로 나뉜다. `scripts/tmux.sh`는 tmux를 설치하고
+`configs/tmux/tmux.conf`를 `~/.tmux.conf`로 배포하며, `scripts/tmux-plugins.sh`는
+플러그인과 `sesh` 세션 매니저를 설치한다(`bootstrap.sh`에서 `tmux.sh` 다음에 실행).
 
 - tmux가 없으면 `pkg_install tmux`로 설치 시도
 - prefix는 `Ctrl-a`
 - 마우스, vi copy mode, 현재 경로 기준 pane/window 생성 활성화
-- 상태줄은 Catppuccin Mocha 계열 색상 사용
-- copy mode의 `y`는 macOS `pbcopy`, Wayland `wl-copy`, X11 `xclip` 순서로 클립보드 연동
+- 스크롤백 `history-limit 100000`, `allow-passthrough on`(이미지 프로토콜·OSC 52),
+  `aggressive-resize`, 활동 모니터링(`monitor-activity`)
+- 상태줄은 Catppuccin Mocha 파워라인(상단). 세션 블록(초록) · 윈도우 탭 · 날짜·시간
+  블록으로 구성되고, 윈도우 탭은 실행 중인 프로그램(nvim/git/ssh/python/node 등)
+  아이콘 → 이름 → 번호 순으로 표시한다
+
+**배포 시 치환**: `tmux.sh`가 `~/.tmux.conf`로 복사할 때 `default-shell`의
+`__ZSH_PATH__` 플레이스홀더를 해석된 zsh 경로로 치환한다(zsh가 없으면 해당 줄 제거).
+
+**플러그인** (TPM 없이 `tmux-plugins.sh`가 `~/.config/tmux/plugins/`로 직접 클론하고
+`tmux.conf`가 `run-shell`로 소싱):
+
+| 플러그인 | 설명 |
+|---------|------|
+| tmux-resurrect | 세션/윈도우/pane 레이아웃·내용 저장·복원 (`prefix + Ctrl-s` / `prefix + Ctrl-r`) |
+| tmux-continuum | 10분마다 자동 저장, tmux 서버 시작 시 자동 복원 → **재부팅 후 유지** |
+| tmux-yank | macOS/Wayland/X11/WSL 크로스플랫폼 시스템 클립보드 (`y`, 마우스 드래그) |
+| vim-tmux-navigator | nvim↔tmux pane 무봉제 이동 (`Ctrl-h/j/k/l`, vim/fzf 안이면 키 전달) |
+
+**세션 매니저(sesh)**: `prefix + t`로 기존 세션을 퍼지 검색하거나 디렉터리에서 새 세션을
+생성한다. macOS는 Homebrew, 그 외는 `go install`로 설치하고 `~/.local/bin`에 심볼릭한다.
+
+**추가 키맵**: `prefix + g`(현재 경로 스크래치 팝업), `prefix + S`(pane 입력 동기화 토글),
+`prefix + Tab`(직전 윈도우), `prefix + <`/`>`(윈도우 이동),
+`prefix + Ctrl-l`(화면 지우기 — vim-tmux-navigator가 무프리픽스 `Ctrl-l`을 가져가므로 복원).
+
+nvim 쪽 연동은 `configs/nvim/plugins/tmux-navigator.lua`(LazyVim 스펙)로 배포된다.
 
 ### Codex CLI 관리
 

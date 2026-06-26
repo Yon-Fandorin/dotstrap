@@ -1,5 +1,25 @@
 ## Changelog
 
+### 2026-06-26
+
+#### 추가
+- tmux 플러그인 확장 — `scripts/tmux-plugins.sh`에 `tmux-yank`(크로스플랫폼 클립보드)와
+  `vim-tmux-navigator`(nvim↔tmux 무봉제 이동)를 직접 클론으로 추가(TPM 미사용 유지)
+  - `configs/nvim/plugins/tmux-navigator.lua`(LazyVim 스펙) 동반 배포로 `Ctrl-h/j/k/l` 양방향 이동
+- tmux 키맵 추가 — `prefix + g`(스크래치 팝업), `prefix + S`(pane 동기화 토글),
+  `prefix + Tab`(직전 윈도우), `prefix + <`/`>`(윈도우 이동), `prefix + Ctrl-l`(화면 지우기)
+
+#### 변경
+- `configs/tmux/tmux.conf` — `history-limit` 50000→100000, `allow-passthrough on`,
+  `aggressive-resize`, 활동 모니터링, ghostty RGB terminal-feature 추가
+- 상태줄 윈도우 탭 요소 순서를 아이콘 → 이름 → 번호로 조정(파워라인 디자인은 기존 유지)
+- 클립보드는 `tmux-yank`가 담당하도록 변경(기존 copy mode `y` 수동 분기 제거)
+- 비활성 pane 경계선을 더 잘 보이는 dim 색(`#585b70`)으로 조정
+
+#### 수정
+- `README.md` 스크립트 표에 누락됐던 `tmux-plugins.sh` 추가 및 순서 번호 정정
+- `docs/reference.md` tmux 섹션을 현재 구성(플러그인·sesh·키맵)에 맞게 갱신
+
 ### 2026-06-10
 
 #### 변경

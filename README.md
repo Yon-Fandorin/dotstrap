@@ -42,8 +42,9 @@ curl -fsSL https://raw.githubusercontent.com/Yon-Fandorin/dotstrap/main/install.
 | 8 | claude.sh | Claude Code CLI |
 | 9 | codex.sh | Codex CLI |
 | 10 | nvim.sh | Neovim + LazyVim + 플러그인 설정 |
-| 11 | tmux.sh | tmux 설정 배포 |
-| 12 | zshrc.sh | .zshrc 생성 (마지막 실행) |
+| 11 | tmux.sh | tmux 설치 + 설정 배포 |
+| 12 | tmux-plugins.sh | tmux 플러그인(영속화·yank·navigator) + sesh 설치 |
+| 13 | zshrc.sh | .zshrc 생성 (마지막 실행) |
 
 ### 파일 구조
 

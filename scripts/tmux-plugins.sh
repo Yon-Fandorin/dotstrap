@@ -1,18 +1,21 @@
 #!/usr/bin/env bash
-# tmux-plugins.sh — tmux session persistence (resurrect + continuum) and the
-# sesh session manager. No TPM: plugins are cloned directly and sourced from
+# tmux-plugins.sh — tmux plugins (resurrect + continuum for session persistence,
+# tmux-yank for the system clipboard, vim-tmux-navigator for nvim<->tmux nav) and
+# the sesh session manager. No TPM: plugins are cloned directly and sourced from
 # tmux.conf via run-shell. fzf and zoxide (sesh's deps) are installed elsewhere.
 set -euo pipefail
 
 DOTSTRAP_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 source "${DOTSTRAP_DIR}/lib/common.sh"
 
-# ─── tmux-resurrect + tmux-continuum (pure shell, no TPM) ────────────────────
+# ─── tmux plugins (pure shell, no TPM; sourced from tmux.conf via run-shell) ──
 PLUGIN_DIR="${HOME}/.config/tmux/plugins"
 mkdir -p "$PLUGIN_DIR"
 git_clone_or_pull "https://github.com/tmux-plugins/tmux-resurrect" "${PLUGIN_DIR}/tmux-resurrect"
 git_clone_or_pull "https://github.com/tmux-plugins/tmux-continuum" "${PLUGIN_DIR}/tmux-continuum"
-log_success "tmux-resurrect + tmux-continuum ready"
+git_clone_or_pull "https://github.com/tmux-plugins/tmux-yank" "${PLUGIN_DIR}/tmux-yank"
+git_clone_or_pull "https://github.com/christoomey/vim-tmux-navigator" "${PLUGIN_DIR}/vim-tmux-navigator"
+log_success "tmux plugins ready (resurrect, continuum, yank, vim-tmux-navigator)"
 
 # ─── sesh (session manager) ──────────────────────────────────────────────────
 if has_cmd sesh; then
