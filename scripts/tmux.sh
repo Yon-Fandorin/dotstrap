@@ -44,8 +44,17 @@ else
     log_success "Deployed .tmux.conf"
 fi
 
-if has_cmd tmux; then
-    log_success "tmux ready"
-else
+if ! has_cmd tmux; then
     log_warn "tmux config deployed, but tmux is not installed"
+    exit 0
 fi
+
+if tmux list-sessions &>/dev/null; then
+    if ! tmux source-file "$CONFIG_DST"; then
+        log_error "Failed to reload ${CONFIG_DST}; fix the config and rerun scripts/tmux.sh"
+        exit 1
+    fi
+    log_success "Reloaded .tmux.conf in the running tmux server"
+fi
+
+log_success "tmux ready"
