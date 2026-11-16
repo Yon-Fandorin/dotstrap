@@ -43,7 +43,7 @@
 
 - 기존 `.zshrc`가 다르면 `.zshrc.bak.{timestamp}`로 백업
 - `~/.zshrc.local`을 마지막에 소싱 — 추적하지 않는 개인 설정용
-- nvim 존재 시 `EDITOR`/`VISUAL` 설정 → git 등 모든 CLI 도구에서 nvim 사용
+- Emacs 존재 시 `EDITOR`/`VISUAL`을 `emacs -nw`로 설정, 없으면 nvim 사용
 - `vi`/`vim` → `nvim`, `cat` → `bat`, `find` → `fd`, `ls` → `eza` 별칭
 - Claude Code `cc` 별칭
 - tmux 존재 시 `tm`, `tma`, `tml`, `tmn` 별칭
@@ -102,6 +102,16 @@ nvim 쪽 연동은 `configs/nvim/plugins/tmux-navigator.lua`(LazyVim 스펙)로 
 - `CODEX_NON_INTERACTIVE=true`로 실행해 설치 후 Codex를 자동 실행하지 않음
 - `CODEX_INSTALL_DIR=~/.local/bin`으로 설치 위치 고정
 
+### Emacs (emacs.sh)
+
+- macOS는 [Homebrew의 `emacs` 패키지](https://formulae.brew.sh/formula/emacs), Linux는 각 배포판 패키지 매니저의 `emacs` 패키지 사용
+- 이미 `emacs` 명령이 있으면 설치 생략
+- Linux에서 설치하려면 sudo 필요. 설치 후에도 `emacs` 명령을 찾을 수 없으면 실패로 보고
+- 개인 Emacs 설정을 생성하거나 덮어쓰지 않음
+- `emacs -nw [파일]`로 터미널에서 실행
+- 기본 에디터 변경은 `zshrc.sh` 실행 후 새 셸에서 적용. 직접 수정한 `.zshrc`는 전체를 교체하지 말고 에디터 설정만 반영
+- 다른 기본 에디터를 쓰려면 `~/.zshrc.local`에서 `EDITOR`와 `VISUAL`을 지정
+
 ### 검증 방법
 
 ```bash
@@ -109,7 +119,7 @@ nvim 쪽 연동은 `configs/nvim/plugins/tmux-navigator.lua`(LazyVim 스펙)로 
 ./dotstrap/bootstrap.sh
 
 # 도구 버전 확인
-rustc --version && node --version && bun --version && claude --version && codex --version && nvim --version && tmux -V
+rustc --version && node --version && bun --version && claude --version && codex --version && nvim --version && emacs --version && tmux -V
 
 # 멱등성 확인 (재실행)
 ./dotstrap/bootstrap.sh

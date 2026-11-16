@@ -77,7 +77,10 @@ bindkey '^[OB' history-substring-search-down
 
 # ─── Editor ───────────────────────────────────────────────────────────────────
 
-if command -v nvim &>/dev/null; then
+if command -v emacs &>/dev/null; then
+    export EDITOR='emacs -nw'
+    export VISUAL='emacs -nw'
+elif command -v nvim &>/dev/null; then
     export EDITOR='nvim'
     export VISUAL='nvim'
 fi

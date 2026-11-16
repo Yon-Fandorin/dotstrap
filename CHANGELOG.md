@@ -1,5 +1,13 @@
 ## Changelog
 
+### 2026-11-16
+
+#### 추가
+- `emacs.sh` — GNU Emacs 설치, 기존 설치 감지, 설치 후 명령 확인
+- 기본 설치 순서에 Emacs 추가
+- Emacs가 있으면 `EDITOR`/`VISUAL`을 `emacs -nw`로 설정, 없으면 nvim 사용
+- 터미널 Emacs 실행 방법과 기본 키 안내
+
 ### 2026-06-26
 
 #### 추가

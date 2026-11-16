@@ -18,6 +18,23 @@ curl -fsSL https://raw.githubusercontent.com/Yon-Fandorin/dotstrap/main/install.
 ./dotstrap/bootstrap.sh rust.sh nvim.sh
 ```
 
+### 터미널 Emacs
+
+기존 LazyVim과 함께 기본 Emacs를 설치하며, Emacs가 있으면 `EDITOR`와 `VISUAL`을 `emacs -nw`로 설정합니다.
+
+```bash
+# Emacs 설치 + 셸 설정 생성 (기존 .zshrc는 백업 후 교체)
+./bootstrap.sh emacs.sh zshrc.sh
+exec zsh
+
+# 터미널에서 파일 열기
+emacs -nw README.md
+```
+
+설치된 Emacs와 개인 Emacs 설정은 그대로 사용합니다. `.zshrc`를 직접 수정했다면 `./bootstrap.sh emacs.sh`만 실행하고 `EDITOR`·`VISUAL` 설정을 직접 반영하세요. 개인 셸 설정은 `~/.zshrc.local`에 두면 재생성 후에도 유지됩니다.
+
+기본 키는 `C-x C-f`(파일 열기), `C-x C-s`(저장), `C-x C-c`(종료), `C-g`(명령 취소), `C-h t`(튜토리얼)입니다. `C-`는 Ctrl 키를 뜻합니다. 자세한 사용법은 [GNU Emacs 가이드](https://www.gnu.org/software/emacs/tour/)를 참고하세요.
+
 ### 지원 OS
 
 - [x] Ubuntu 24.04 LTS (WSL2) — 검증 완료
@@ -42,9 +59,10 @@ curl -fsSL https://raw.githubusercontent.com/Yon-Fandorin/dotstrap/main/install.
 | 8 | claude.sh | Claude Code CLI |
 | 9 | codex.sh | Codex CLI |
 | 10 | nvim.sh | Neovim + LazyVim + 플러그인 설정 |
-| 11 | tmux.sh | tmux 설치 + 설정 배포 |
-| 12 | tmux-plugins.sh | tmux 플러그인(영속화·yank·navigator) + sesh 설치 |
-| 13 | zshrc.sh | .zshrc 생성 (마지막 실행) |
+| 11 | emacs.sh | GNU Emacs 설치 (터미널 에디터) |
+| 12 | tmux.sh | tmux 설치 + 설정 배포 |
+| 13 | tmux-plugins.sh | tmux 플러그인(영속화·yank·navigator) + sesh 설치 |
+| 14 | zshrc.sh | .zshrc 생성 (마지막 실행) |
 
 ### 파일 구조
 
