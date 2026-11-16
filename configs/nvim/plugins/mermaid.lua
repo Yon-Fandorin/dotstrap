@@ -82,8 +82,8 @@ return {
                             id = id,
                             window = win,
                             buffer = buf,
-                            row = block_end,
-                            col = 0,
+                            y = block_end,
+                            x = 0,
                             with_virtual_padding = true,
                           })
                           if img then

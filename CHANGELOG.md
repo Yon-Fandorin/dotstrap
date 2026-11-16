@@ -8,6 +8,10 @@
 - Emacs가 있으면 `EDITOR`/`VISUAL`을 `emacs -nw`로 설정, 없으면 nvim 사용
 - 터미널 Emacs 실행 방법과 기본 키 안내
 
+#### 수정
+- `mermaid.lua` — image.nvim 좌표 옵션을 `row`/`col`에서 `y`/`x`로 변경해 문서 맨 위에 표시되던 다이어그램을 코드 블록 아래에 배치
+- macOS에서 Emacs 공식 배포 바이너리 실행과 Mermaid 이미지 생성·배치 검증 결과 기록
+
 ### 2026-06-26
 
 #### 추가

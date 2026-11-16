@@ -133,6 +133,18 @@ cat ~/.dotstrap.log
 
 ### 검증 결과
 
+#### macOS 26.6.2 / Apple Silicon (2026-11-16)
+
+- 환경: arm64, Neovim 0.12.2, Node 24.14.0
+- 기존 Emacs 30.2: 설치 스크립트 재실행 시 설치 생략, `EDITOR`/`VISUAL`의 `emacs -nw` 선택 확인
+- 신규 Emacs 배포 패키지: 공식 Homebrew `31.1_1` bottle과 tree-sitter 0.27.2를 임시 경로에 추출하고 라이브러리·데이터 경로를 치환해 배치 실행, 터미널 파일 열기, 한글 저장 확인. 기존 Emacs 설치는 유지
+- Homebrew `brew install --dry-run --formula emacs`: Emacs와 의존성 설치 계획 확인. 실제 신규 설치를 수행한 결과는 아님
+- Mermaid CLI 12.2.0: Chromium으로 투명 배경 PNG 생성, ImageMagick 7.1.2-35로 744×64 PNG 판독 확인
+- 실제 Neovim과 image.nvim: 테스트 문서의 닫는 펜스 아래 좌표(`x=0`, `y=8`)에서 `is_rendered=true`, Kitty 그래픽 전송·표시 명령 출력, 오류 메시지 없음 확인
+- 검증 중 image.nvim이 지원하지 않는 `row`/`col` 옵션을 발견해 [API의 `y`/`x` 옵션](https://github.com/3rd/image.nvim#api)으로 수정
+- 환경 변경: Homebrew로 ImageMagick과 의존성을 설치·갱신. Mermaid CLI와 Chromium은 임시 검증 폴더에 설치
+- 미검증 범위: 새 Mac에서 Homebrew 설치부터 전체 부트스트랩 실행, Ghostty 화면의 실제 이미지 표시. Ghostty는 컴퓨터 제어 도구의 앱 접근 제한으로 화면을 확인하지 못함
+
 #### Ubuntu 24.04 LTS / WSL2 (2026-03-03)
 
 | 항목 | 값 |
